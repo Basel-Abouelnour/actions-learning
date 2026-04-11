@@ -19,6 +19,7 @@ jobs:
     strategy:
       matrix:
         version: [3.11, 3.12]
+        command: [date, cal]
     steps:
       - name: Check out repository
         # Download the repository contents onto the runner.
@@ -42,4 +43,4 @@ jobs:
         run: python -m unittest discover -s tests -v
 
       - name: checking Date
-        run: date
+        run: ${{ matrix.command }}
