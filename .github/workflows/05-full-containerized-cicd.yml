@@ -1,6 +1,6 @@
 # This optional workflow shows a fuller CI/CD shape in one file.
 # It stays beginner-safe by keeping containerization real but deployment simulated.
-name: 90 OPTIONAL Full Containerized CI/CD Workflow
+name: Full Containerized CI/CD Workflow with Docker arg
 
 on:
   # Keep this optional example manual-only so it does not distract from the core labs.
@@ -31,6 +31,9 @@ jobs:
         run: python -m unittest discover -s tests -v
 
   build-container:
+    strategy:
+      matrix:
+        version: [python:3.12-slim, python:3.11-slim]
     # Build only after the verification job succeeds.
     needs: verify
     runs-on: ubuntu-latest
@@ -54,8 +57,10 @@ jobs:
         # We add a traceable tag and a latest tag to the same image.
         run: |
           docker build \
+            --build-arg BASE_IMAGE=${{ matrix.version }} \
             -t "${IMAGE_NAME}:${{ steps.image-tag.outputs.image_tag }}" \
             -t "${IMAGE_NAME}:latest" \
+            -f Dockerfile.arg-base
             .
 
       - name: Save Docker image as artifact file
