@@ -33,7 +33,7 @@ jobs:
   build-container:
     strategy:
       matrix:
-        version: [python:3.12-slim, python:3.11-slim]
+        version: [3.12-slim, 3.11-slim]
     # Build only after the verification job succeeds.
     needs: verify
     runs-on: ubuntu-latest
