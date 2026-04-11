@@ -70,7 +70,7 @@ jobs:
       - name: Upload image artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.ARTIFACT_NAME }}
+          name: ${{ env.ARTIFACT_NAME }}-${{ matrix.version }}
           path: ${{ env.IMAGE_TAR }}
           retention-days: 7
 
