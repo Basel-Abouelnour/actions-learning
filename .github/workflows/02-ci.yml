@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         version: [3.11, 3.12]
-        command: [date, cal]
+        command: [date, whoami]
     steps:
       - name: Check out repository
         # Download the repository contents onto the runner.
