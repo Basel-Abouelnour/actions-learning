@@ -60,7 +60,7 @@ jobs:
             --build-arg BASE_IMAGE=${{ matrix.version }} \
             -t "${IMAGE_NAME}:${{ steps.image-tag.outputs.image_tag }}" \
             -t "${IMAGE_NAME}:latest" \
-            -f Dockerfile.arg-base
+            -f Dockerfile.arg-base \
             .
 
       - name: Save Docker image as artifact file
