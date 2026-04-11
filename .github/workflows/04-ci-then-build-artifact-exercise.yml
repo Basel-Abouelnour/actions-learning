@@ -97,7 +97,7 @@ jobs:
         # The deploy workflow will run this exact same tag later.
         run: |
           docker build \
-            -t "${IMAGE_NAME}:${{ steps.image-tag.outputs.image_tag }}" \
+            -t "${IMAGE_NAME}:${{ steps.image-tag.outputs.image_tag }}-${{ matrix.version }}" \
             .
 
       - name: Save Docker image as artifact file
@@ -108,6 +108,6 @@ jobs:
         # Store the packaged output so a later workflow can use the exact same package.
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.ARTIFACT_NAME }}
+          name: ${{ env.ARTIFACT_NAME }}-${{ matrix.version }}
           path: ${{ env.IMAGE_TAR }}
           retention-days: 7
