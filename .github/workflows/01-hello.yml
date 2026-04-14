@@ -17,5 +17,7 @@ jobs:
 
     steps:
       - name: Say hello
+        env:
+          MySecret: ${{ secrets.TESTING }}
         # This single step is enough to show a full workflow run.
-        run: echo "Hello from GitHub Actions"
+        run: echo ${{env.MySecret}}
