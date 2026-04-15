@@ -37,12 +37,6 @@ jobs:
 
       - name: Build & Push
         run: |
-          docker build -t my-app .
-          docker tag my-app:latest $ECR_REGISTRY/my-app:latest
-          docker push $ECR_REGISTRY/my-app:latest
-
-      - name: Build & Push
-        run: |
           docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
           docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
