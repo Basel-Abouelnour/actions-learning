@@ -29,6 +29,10 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/actions-ecr
           aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Fetch the caller identity
+        run: | 
+          aws sts get-caller-identity
 
       - name: Login to ECR
         run: |
