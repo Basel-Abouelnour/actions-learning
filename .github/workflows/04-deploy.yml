@@ -42,12 +42,24 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
 
-      - name: SSH into EC2
+
+        # SSH is working  
+   
+      - name: Testing SSH 
         run: |
           ssh -i ~/.ssh/ec2_key ubuntu@${{ vars.EC2_IP }} \
           "echo Connected && whoami && hostname" 
+
+      # Cloning the repository contents to copy scripts.
+      - name: Check out repository
+        uses: actions/checkout@v6
       
-   
+      - name: Copying & Executing scripts
+        run: |
+          scp -i ~/.ssh/ec2_key ./scripts/ ubuntu@${{ vars.EC2_IP }}:/tmp/
+          ssh -i ~/.ssh/ec2_key ubuntu@${{ vars.EC2_IP }} "chmod +x -R /tmp/scripts/"
+          ssh -i ~/.ssh/ec2_key ubuntu@${{ vars.EC2_IP }} "bash /tmp/scripts/assessment/prepare-ubuntu-vm.sh"
+          
 
       # - name: Start container
       #   # Start the exact same tagged image that the build workflow created.
